@@ -5,8 +5,8 @@
   "description": "Christmas game 2018",
   "main": "index.js",
   "scripts": {
-    "test": "mocha day-**/test.js",
-    "start": "node app.js"
+    "test": "mocha src/day-**/test.js",
+    "start": "node index.js"
   },
   "keywords": [
     "advent-of-code-2018"

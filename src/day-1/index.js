@@ -1,24 +1,27 @@
 const fs = require('fs');
-const CONTENT = fs.readFileSync(`${__dirname}/data.txt`, 'utf8');
-const FREQUENCY = CONTENT.toString().split('\n');
+const FREQUENCIES = fs.readFileSync(`${__dirname}/data.txt`, 'utf8');
 
-const resultingFrequency = () => {
-    const resultingFrequency = FREQUENCY.reduce((res, item) => res + Number(item), 0);
+const prepare = (frequencies) => frequencies.toString().split('\n');
+
+const resultingFrequency = (frequencies) => {
+    const resultingFrequency = prepare(frequencies).reduce((res, item) => res + Number(item), 0);
 
     console.log(`Resulting frequency is: ${resultingFrequency}.\n`);
+
+    return resultingFrequency;
 };
 
-const twiceFrequency = () => {
-    let hasTwice = false;
-    let twiceFrequencies = [];
+const duplicateFrequency = (frequencies) => {
+    let hasDuplicate = false;
+    let duplicateFrequencies = [];
 
     const findRecursively = (preFrequencies, cur) => {
-        let nextFrequencies = FREQUENCY.reduce((acc, item) => {
+        let nextFrequencies = prepare(frequencies).reduce((acc, item) => {
             acc[cur] = acc[cur] ? acc[cur] + 1 : 1;
 
             if (acc[cur] === 2) {
-                hasTwice = true;
-                twiceFrequencies.push(cur);
+                hasDuplicate = true;
+                duplicateFrequencies.push(cur);
             }
 
             cur += Number(item);
@@ -26,19 +29,23 @@ const twiceFrequency = () => {
             return acc;
         }, preFrequencies);
 
-        if (hasTwice) {
-            return twiceFrequencies[0]
+        if (hasDuplicate) {
+            return duplicateFrequencies[0]
         }
 
         return findRecursively(nextFrequencies, cur)
     };
 
-    const result = findRecursively({}, 0);
+    const firstDuplicateFrequency = findRecursively({}, 0);
 
-    console.log(`First frequency this device reaches twice: ${result}.\n`);
+    console.log(`First frequency this device reaches duplicate: ${firstDuplicateFrequency}.\n`);
+
+    return firstDuplicateFrequency;
 };
 
 module.exports = {
-    resultingFrequency,
-    twiceFrequency,
+    resultingFrequency: resultingFrequency.bind(this, FREQUENCIES),
+    duplicateFrequency: duplicateFrequency.bind(this, FREQUENCIES),
+    resultingFrequencyForTest: resultingFrequency,
+    duplicateFrequencyForTest: duplicateFrequency,
 };
