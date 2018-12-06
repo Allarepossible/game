@@ -4,14 +4,14 @@ https://adventofcode.com/2018 🎄
 
 
 ## How to run
--Clone this repo
--npm install
--npm start
+1. Clone this repo
+2. `npm install`
+3. `npm start`
 
 ## Days
 
 | Day  | Part One | Part Two |
 |---|:---:|:---:|
-|️ Day 1: Chronal Calibration | ⭐️ | -️ |
-| Day 2: Inventory Management System | -️ | -️ |
+|✔️ Day 1: Chronal Calibration | ⭐️ | ⭐️ |
+| Day 2: Inventory Management System | -️ | - |
 |️ Day 3: No Matter How You Slice It  | -️ | - |

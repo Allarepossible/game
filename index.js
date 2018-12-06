@@ -1,4 +1,7 @@
-const {resultingFrequency} = require('./src/day-1/first');
+const {resultingFrequency, twiceFrequency} = require('./src/day-1');
 
-console.log('-1-day 1-task:\n');
+console.log('day-1 first task:\n');
 resultingFrequency();
+
+console.log('day-1 second task:\n');
+twiceFrequency();
