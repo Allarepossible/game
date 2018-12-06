@@ -1,0 +1,20 @@
+{
+  "name": "advent-of-code",
+  "author": "Gilfanova Leisan",
+  "version": "1.0.0",
+  "description": "Christmas game 2018",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha day-**/test.js",
+    "start": "node app.js"
+  },
+  "keywords": [
+    "advent-of-code-2018"
+  ],
+  "dependencies": {
+    "fs": "0.0.1-security"
+  },
+  "devDependencies": {
+    "mocha": "^5.2.0"
+  }
+}
