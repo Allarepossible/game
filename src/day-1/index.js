@@ -12,31 +12,25 @@ const resultingFrequency = (frequencies) => {
 };
 
 const duplicateFrequency = (frequencies) => {
-    let hasDuplicate = false;
-    let duplicateFrequencies = [];
+    const result = prepare(frequencies).filter(i => i);
+    let firstDuplicateFrequency;
+    let n = 0;
+    let obj = {0: 1};
 
-    const findRecursively = (preFrequencies, cur) => {
-        let nextFrequencies = prepare(frequencies).reduce((acc, item) => {
-            acc[cur] = acc[cur] ? acc[cur] + 1 : 1;
-
-            if (acc[cur] === 2) {
-                hasDuplicate = true;
-                duplicateFrequencies.push(cur);
-            }
-
-            cur += Number(item);
-
-            return acc;
-        }, preFrequencies);
-
-        if (hasDuplicate) {
-            return duplicateFrequencies[0]
+    for(let i=0;; i++){
+        if(i >= result.length){
+            i -= result.length;
         }
 
-        return findRecursively(nextFrequencies, cur)
-    };
+        n += Number(result[i]);
 
-    const firstDuplicateFrequency = findRecursively({}, 0);
+        if(obj[n]){
+            firstDuplicateFrequency = n;
+            break;
+        } else {
+            obj[n] = n;
+        }
+    }
 
     console.log(`First frequency this device reaches duplicate: ${firstDuplicateFrequency}.\n`);
 
