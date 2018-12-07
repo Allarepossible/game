@@ -70,10 +70,12 @@ const findCommonLetters = (words) => {
 
     console.log(`This letters are common between the two correct box IDs: ${commonLetters}.\n`);
 
-    return commonLetters;
+    return commonLetters.trim();
 };
 
 module.exports = {
     findChecksum: findChecksum.bind(this, WORDS),
     findCommonLetters: findCommonLetters.bind(this, WORDS),
+    findChecksumForTest: findChecksum,
+    findCommonLettersForTest: findCommonLetters,
 };
