@@ -68,4 +68,6 @@ const findNotOverlapped = (params) => {
 module.exports = {
     findCountOfInches: findCountOfInches.bind(this, PARAMS),
     findNotOverlapped: findNotOverlapped.bind(this, PARAMS),
+    findCountOfInchesForTest: findCountOfInches,
+    findNotOverlappedForTest: findNotOverlapped,
 };
