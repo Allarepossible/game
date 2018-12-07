@@ -24,10 +24,9 @@ const convertToGrid = params => params.reduce((grid, {top, left, width, height})
             let id = String(top + dy) + '-' + String(left + dx);
 
             grid[id] = grid[id] ? grid[id] + 1 : 1;
-
-            return grid;
         }
     }
+    return grid;
 }, {});
 
 
