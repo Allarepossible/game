@@ -13,7 +13,6 @@ const convertToGuards = times => {
             curId = id;
             guards[id] = guards[id] ? guards[id] : {};
         } else {
-            console.log(`${m}-${d}`)
             guards[curId][`${m}-${d}`] = guards[curId][`${m}-${d}`] ? [...guards[curId][`${m}-${d}`], min] : [min];
         }
     }

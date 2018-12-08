@@ -2,7 +2,7 @@ const assert = require('assert');
 
 const {findMultiplyForTest, findSecondMultiplyForTest} = require('.');
 
-describe('Day 3: No Matter How You Slice It', () => {
+describe('Day 4: Repose Record', () => {
     it('should find ID of the guard multiplied by the minute', () => {
         const timetable =
             `[1518-11-01 00:00] Guard #10 begins shift

@@ -38,7 +38,7 @@ const findLengthOfReactedPolymer = polymer => {
 const findRemainingUnits = polymer => {
     const countOfUnits = findLengthOfReactedPolymer(polymer);
 
-    console.log(`ID of the guard multiplied by the minute: ${countOfUnits}.\n`);
+    console.log(`Count of units remain after fully reacting the polymer: ${countOfUnits}.\n`);
 
     return countOfUnits;
 };
@@ -47,14 +47,15 @@ const findShortesPolymer = polymer => {
     const countOfShortestUnions = DIC.split('').reduce((count, l) => {
         const newPolymer = polymer.split('').filter(i => i !== l && i !== l.toUpperCase()).join('');
         const lengthOfReactedPolymer = findLengthOfReactedPolymer(newPolymer);
-        console.log(l, lengthOfReactedPolymer)
+
         if (lengthOfReactedPolymer < count) {
             return lengthOfReactedPolymer;
         }
+
         return count;
     }, polymer.length);
 
-    console.log(`ID of the guard multiplied by the minute: ${countOfShortestUnions}.\n`);
+    console.log(`Length of the shortest polymer produced by removing units: ${countOfShortestUnions}.\n`);
 
     return countOfShortestUnions;
 };
@@ -63,4 +64,6 @@ const findShortesPolymer = polymer => {
 module.exports = {
     findRemainingUnits: findRemainingUnits.bind(this, POLYMER),
     findShortesPolymer: findShortesPolymer.bind(this, POLYMER),
+    findRemainingUnitsForTest: findRemainingUnits,
+    findShortesPolymerForTest: findShortesPolymer,
 };
