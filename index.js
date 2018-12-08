@@ -3,6 +3,7 @@ const {findChecksum, findCommonLetters} = require('./src/day-2');
 const {findCountOfInches, findNotOverlapped} = require('./src/day-3');
 const {findMultiply, findSecondMultiply} = require('./src/day-4');
 const {findRemainingUnits, findShortesPolymer} = require('./src/day-5');
+const {findSizeOfLargestArea} = require('./src/day-6');
 
 console.log('day-1 first task:\n');
 resultingFrequency();
@@ -33,3 +34,6 @@ findRemainingUnits();
 
 console.log('day-5 second task:\n');
 findShortesPolymer();
+
+console.log('day-6 first task:\n');
+findSizeOfLargestArea();
