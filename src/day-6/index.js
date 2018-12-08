@@ -25,13 +25,19 @@ const findNearestPoint = ({x, y}, points) => {
     }, {x, y})
 };
 
+const findLimits = points => {
+    let {0 : minY ,length : ly, [ly - 1] : maxY} = points.map(({y}) => y).sort((a, b) => a - b);
+    let {0 : minX ,length : lx, [lx - 1] : maxX} = points.map(({x}) => x).sort((a, b) => a - b);
+
+    return {minY, maxY, minX, maxX};
+};
+
 const findSizeOfLargestArea = coords => {
     const points = prepare(coords);
+    const {minY, maxY, minX, maxX} = findLimits(points);
     let area = [];
     let newPoint = {};
     let infinite = [];
-    let {0 : minY ,length : ly, [ly - 1] : maxY} = points.map(({y}) => y).sort((a, b) => a - b);
-    let {0 : minX ,length : lx, [lx - 1] : maxX} = points.map(({x}) => x).sort((a, b) => a - b);
 
     for (let x = minX; x <= maxX; x++) {
         for (let y = minY; y <= maxY; y++) {
@@ -55,7 +61,35 @@ const findSizeOfLargestArea = coords => {
     return largestSize;
 };
 
+const calculateTotalDistance = ({x, y}, points) => points.reduce((total, point) => {
+    total += distance({x, y}, point);
+
+    return total;
+}, 0);
+
+
+const findSizeOfRegion = (coords, max) => {
+    const points = prepare(coords);
+    const {minY, maxY, minX, maxX} = findLimits(points);
+    let totalDistance;
+    let totalDistances = [];
+
+    for (let x = minX; x <= maxX; x++) {
+        for (let y = minY; y <= maxY; y++) {
+            totalDistance = calculateTotalDistance({x, y}, points);
+            totalDistances.push(totalDistance)
+        }
+    }
+
+    const largestRegion = totalDistances.filter(i => i < max).length;
+
+    console.log(`Size of the largest area: ${largestRegion}.\n`);
+
+    return largestRegion;
+};
+
 
 module.exports = {
     findSizeOfLargestArea: findSizeOfLargestArea.bind(this, COORDS),
+    findSizeOfRegion: findSizeOfRegion.bind(this, COORDS, 10000),
 };
