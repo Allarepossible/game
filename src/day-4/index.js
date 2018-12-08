@@ -1,7 +1,7 @@
 const fs = require('fs');
 const TIMETABLE = fs.readFileSync(`${__dirname}/data.txt`, 'utf8');
 
-const prepare = (timetable) => timetable.toString().split('\n').filter(i => i).sort();
+const prepare = (timetable) => timetable.toString().split('\n').filter(i => i).map(item => item.trim()).sort();
 
 const convertToGuards = times => {
     let curId = '';
@@ -13,6 +13,7 @@ const convertToGuards = times => {
             curId = id;
             guards[id] = guards[id] ? guards[id] : {};
         } else {
+            console.log(`${m}-${d}`)
             guards[curId][`${m}-${d}`] = guards[curId][`${m}-${d}`] ? [...guards[curId][`${m}-${d}`], min] : [min];
         }
     }
@@ -117,4 +118,6 @@ const findSecondMultiply = params => {
 module.exports = {
     findMultiply: findMultiply.bind(this, TIMETABLE),
     findSecondMultiply: findSecondMultiply.bind(this, TIMETABLE),
+    findMultiplyForTest: findMultiply,
+    findSecondMultiplyForTest: findSecondMultiply,
 };
