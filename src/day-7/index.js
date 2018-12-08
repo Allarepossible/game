@@ -1,5 +1,6 @@
 const fs = require('fs');
 const COMMANDS = fs.readFileSync(`${__dirname}/data.txt`, 'utf8');
+const MAX = 5;
 
 const prepare = commands => commands.split('\n').filter(i => i).sort();
 
@@ -69,7 +70,7 @@ const findCorrectOrders = commands => {
 
 const sortLetters = (a, b) => a.letter - b.letter;
 
-const findCommonTime = (input, MANS = 5, minimumStepDuration = 60) => {
+const findCommonTime = (input, MAX, minimumStepDuration = 60) => {
     const steps = input.split('\n').filter(i => i)
         .map(order => {
             let [, left, right] = order.match(/Step ([A-Z]) must be finished before step ([A-Z]) can begin./);
@@ -84,7 +85,7 @@ const findCommonTime = (input, MANS = 5, minimumStepDuration = 60) => {
 
 
     let result = [];
-    const helpers = Array.from({length: MANS}).map(() => ({
+    const helpers = Array.from({length: MAX}).map(() => ({
         times: 0,
         letter: null,
     }));
@@ -135,7 +136,9 @@ const findCommonTime = (input, MANS = 5, minimumStepDuration = 60) => {
 
 module.exports = {
     findCorrectOrders: findCorrectOrders.bind(this, COMMANDS),
-    findCommonTime: findCommonTime.bind(this, COMMANDS),
+    findCommonTime: findCommonTime.bind(this, COMMANDS, MAX),
+    findCorrectOrdersForTest: findCorrectOrders,
+    findCommonTimeForTest: findCommonTime,
 };
 
 
