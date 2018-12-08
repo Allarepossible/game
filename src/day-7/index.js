@@ -1,7 +1,7 @@
 const fs = require('fs');
 const COMMANDS = fs.readFileSync(`${__dirname}/data.txt`, 'utf8');
 
-const prepare = commands => commands.toString().split('\n').filter(i => i).sort();
+const prepare = commands => commands.split('\n').filter(i => i).sort();
 
 const unic = entities => {
     let last = '';
@@ -37,12 +37,10 @@ const findFilters = steps => {
     return {letters: [...letter], filtered: filterSteps(steps, letter)};
 };
 
-const getUsedLetters = steps => {
-    const firsts = unic(steps.map(({first}) => first));
-    const thens = unic(steps.map(({then}) => then).sort());
-
-    return unic([...firsts, ...thens].sort());
-};
+const getUsedLetters = steps => [...new Set([
+    ...steps.map(({first}) => first),
+    ...steps.map(({then}) => then)
+])];
 
 const findCorrectOrders = commands => {
     const sortedOrders = prepare(commands);
@@ -69,9 +67,75 @@ const findCorrectOrders = commands => {
     return order;
 };
 
+const sortLetters = (a, b) => a.letter - b.letter;
+
+const findCommonTime = (input, MANS = 5, minimumStepDuration = 60) => {
+    const steps = input.split('\n').filter(i => i)
+        .map(order => {
+            let [, left, right] = order.match(/Step ([A-Z]) must be finished before step ([A-Z]) can begin./);
+
+            return {first: left.charCodeAt(0), then: right.charCodeAt(0)};
+        });
+    const letters = getUsedLetters(steps).map(letter => ({letter, rightHand: []}));
+
+    steps.forEach(({first, then}) => {
+        letters.find(({letter}) => letter === then).rightHand.push(first);
+    });
+
+
+    let result = [];
+    const helpers = Array.from({length: MANS}).map(() => ({
+        times: 0,
+        letter: null,
+    }));
+
+    let time = 0;
+
+    while (letters.length) {
+        const candidates = letters
+            .filter(({rightHand, letter}) => !rightHand.length && helpers.every((x) => x.letter !== letter))
+            .sort(sortLetters);
+
+        time++;
+
+        helpers.sort(sortLetters)
+            .forEach((worker) => {
+                if (worker.times > 0) {
+                    worker.times--;
+                }
+
+                if (worker.times === 0 && worker.letter !== null) {
+                    result.push(worker.letter);
+                    letters
+                        .filter(({rightHand}) => rightHand.includes(worker.letter))
+                        .forEach(letter => letter.rightHand = letter.rightHand.filter((x) => x !== worker.letter));
+
+                    letters.splice(letters.findIndex(({letter}) => letter === worker.letter), 1);
+
+                    worker.letter = null;
+                }
+            });
+
+        for (let i = 0; i < candidates.length; i++) {
+            for (let t = 0; t < helpers.length; t++) {
+                if (helpers[t].letter === null) {
+                    helpers[t].letter = candidates[i].letter;
+                    helpers[t].times = candidates[i].letter - 65 + minimumStepDuration;
+
+                    break;
+                }
+            }
+        }
+    }
+
+    console.log(`Doing all of the steps takes: ${time}.\n`);
+
+    return time
+};
 
 module.exports = {
     findCorrectOrders: findCorrectOrders.bind(this, COMMANDS),
+    findCommonTime: findCommonTime.bind(this, COMMANDS),
 };
 
 
