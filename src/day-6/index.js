@@ -92,4 +92,6 @@ const findSizeOfRegion = (coords, max) => {
 module.exports = {
     findSizeOfLargestArea: findSizeOfLargestArea.bind(this, COORDS),
     findSizeOfRegion: findSizeOfRegion.bind(this, COORDS, 10000),
+    findSizeOfLargestAreaForTest: findSizeOfLargestArea,
+    findSizeOfRegionForTest: findSizeOfRegion,
 };
