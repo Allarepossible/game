@@ -16,4 +16,4 @@ https://adventofcode.com/2018 🎄
 |✔ Day 2: Inventory Management System | ⭐ | ⭐ | 👌 |
 |✔ Day 3: No Matter How You Slice It  | ⭐ | ⭐ | 👌 |
 |✔ Day 4: Inventory Management System | ⭐ | ⭐ | 👌 |
-| Day 5: Alchemical Reduction | ⭐ | - | - |
+|✔ Day 5: Alchemical Reduction | ⭐ | ⭐ | - |

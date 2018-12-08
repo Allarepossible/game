@@ -1,6 +1,8 @@
 const fs = require('fs');
 const POLYMER = fs.readFileSync(`${__dirname}/data.txt`, 'utf8');
 
+const DIC = 'abcdefghijklmnopqrstuvwxyz';
+
 const reactUnits = polymer => {
     let remain = '';
 
@@ -19,7 +21,7 @@ const reactUnits = polymer => {
     return remain;
 };
 
-const findRemainingUnits = polymer => {
+const findLengthOfReactedPolymer = polymer => {
     let len = polymer.length;
     let pre = len + 1;
     let remain = polymer;
@@ -30,14 +32,35 @@ const findRemainingUnits = polymer => {
         len = remain.length;
     }
 
-    const countOfUnits = len;
+    return len;
+};
+
+const findRemainingUnits = polymer => {
+    const countOfUnits = findLengthOfReactedPolymer(polymer);
 
     console.log(`ID of the guard multiplied by the minute: ${countOfUnits}.\n`);
 
     return countOfUnits;
 };
 
+const findShortesPolymer = polymer => {
+    const countOfShortestUnions = DIC.split('').reduce((count, l) => {
+        const newPolymer = polymer.split('').filter(i => i !== l && i !== l.toUpperCase()).join('');
+        const lengthOfReactedPolymer = findLengthOfReactedPolymer(newPolymer);
+        console.log(l, lengthOfReactedPolymer)
+        if (lengthOfReactedPolymer < count) {
+            return lengthOfReactedPolymer;
+        }
+        return count;
+    }, polymer.length);
+
+    console.log(`ID of the guard multiplied by the minute: ${countOfShortestUnions}.\n`);
+
+    return countOfShortestUnions;
+};
+
 
 module.exports = {
     findRemainingUnits: findRemainingUnits.bind(this, POLYMER),
+    findShortesPolymer: findShortesPolymer.bind(this, POLYMER),
 };
