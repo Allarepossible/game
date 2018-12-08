@@ -17,14 +17,14 @@ const duplicateFrequency = (frequencies) => {
     let n = 0;
     let obj = {0: 1};
 
-    for(let i=0;; i++){
-        if(i >= result.length){
+    for (let i=0; ; i++) {
+        if (i >= result.length) {
             i -= result.length;
         }
 
         n += Number(result[i]);
 
-        if(obj[n]){
+        if (obj[n]) {
             firstDuplicateFrequency = n;
             break;
         } else {

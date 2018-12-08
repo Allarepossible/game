@@ -2,6 +2,7 @@ const {resultingFrequency, duplicateFrequency} = require('./src/day-1');
 const {findChecksum, findCommonLetters} = require('./src/day-2');
 const {findCountOfInches, findNotOverlapped} = require('./src/day-3');
 const {findMultiply, findSecondMultiply} = require('./src/day-4');
+const {findRemainingUnits} = require('./src/day-5');
 
 console.log('day-1 first task:\n');
 resultingFrequency();
@@ -26,3 +27,6 @@ findMultiply();
 
 console.log('day-4 second task:\n');
 findSecondMultiply();
+
+console.log('day-5 first task:\n');
+findRemainingUnits();
