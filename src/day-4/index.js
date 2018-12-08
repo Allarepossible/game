@@ -29,7 +29,7 @@ const howLongSleep = schedule => {
     return time;
 };
 
-const findMostLazyGuard = guardsSleptTime => {
+const findLaziestGuard = guardsSleptTime => {
     let maxTime = 0;
     let lazyGuard = '';
 
@@ -43,9 +43,9 @@ const findMostLazyGuard = guardsSleptTime => {
     return lazyGuard;
 };
 
-const findMostLazyMinute = schedule => {
+const findLaziestMinute = schedule => {
     let minutes = {};
-    let mostLazyMin = 0;
+    let laziestMinute = 0;
     let count = 0;
 
     for (const [, value] of Object.entries(schedule)) {
@@ -59,11 +59,11 @@ const findMostLazyMinute = schedule => {
     for (const [key, value] of Object.entries(minutes)) {
         if (value > count) {
             count = value;
-            mostLazyMin = key;
+            laziestMinute = key;
         }
     }
 
-    return mostLazyMin;
+    return {count, laziestMinute};
 };
 
 const findMultiply = params => {
@@ -74,11 +74,39 @@ const findMultiply = params => {
     for (const [key, value] of Object.entries(guards)) {
         guardsSleptTime[key] = howLongSleep(value);
     }
+    const laziestGuard = findLaziestGuard(guardsSleptTime);
+    const {laziestMinute} = findLaziestMinute(guards[laziestGuard]);
 
-    const mostLazyGuard = findMostLazyGuard(guardsSleptTime);
-    const mostLazyMinute = findMostLazyMinute(guards[mostLazyGuard]);
+    const multiply = laziestGuard * laziestMinute;
 
-    const multiply = mostLazyGuard * mostLazyMinute;
+    console.log(`ID of the guard multiplied by the minute: ${multiply}.\n`);
+
+    return multiply;
+};
+
+const findLaziestMinuteAndGuard = guards => {
+    let maxCount = 0;
+    let laziestGuard = 0;
+    let laziestMinuteOfAll = 0;
+
+    for (const [key, value] of Object.entries(guards)) {
+        const {count, laziestMinute} = findLaziestMinute(value);
+        if (maxCount < count) {
+            maxCount = count;
+            laziestGuard = key;
+            laziestMinuteOfAll = laziestMinute;
+        }
+    }
+
+    return {laziestMinuteOfAll, laziestGuard};
+};
+
+const findSecondMultiply = params => {
+    const sortedTimes = prepare(params);
+    const guards = convertToGuards(sortedTimes);
+    const {laziestMinuteOfAll, laziestGuard} = findLaziestMinuteAndGuard(guards);
+
+    const multiply = laziestMinuteOfAll * laziestGuard;
 
     console.log(`ID of the guard multiplied by the minute: ${multiply}.\n`);
 
@@ -88,4 +116,5 @@ const findMultiply = params => {
 
 module.exports = {
     findMultiply: findMultiply.bind(this, TIMETABLE),
+    findSecondMultiply: findSecondMultiply.bind(this, TIMETABLE),
 };
