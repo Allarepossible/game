@@ -61,7 +61,7 @@ const removeExcessLetter = (w1, w2) => {
         res += w1[i] !== w2[i] ? '' : w1[i];
     }
 
-    return res
+    return res;
 };
 
 const findCommonLetters = (words) => {
