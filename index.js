@@ -5,6 +5,7 @@ const {findMultiply, findSecondMultiply} = require('./src/day-4');
 const {findRemainingUnits, findShortesPolymer} = require('./src/day-5');
 const {findSizeOfLargestArea, findSizeOfRegion} = require('./src/day-6');
 const {findCorrectOrders, findCommonTime} = require('./src/day-7');
+const {findRootNodeValue} = require('./src/day-8');
 //
 // console.log('day-1 first task:\n');
 // resultingFrequency();
@@ -45,5 +46,8 @@ const {findCorrectOrders, findCommonTime} = require('./src/day-7');
 // console.log('day-7 first task:\n');
 // findCorrectOrders();
 
-console.log('day-7 second task:\n');
-findCommonTime();
+// console.log('day-7 second task:\n');
+// findCommonTime();
+
+console.log('day-8 second task:\n');
+findRootNodeValue();
