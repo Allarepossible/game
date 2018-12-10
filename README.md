@@ -20,3 +20,4 @@ https://adventofcode.com/2018 🎄
 |✔ Day 6: Chronal Coordinates | ⭐ | ⭐ | 👌 |
 |✔ Day 7: The Sum of Its Parts | ⭐ | ⭐ | 👌 |
 |Day 8: Memory Maneuver | ⭐ | - | - |
+|Day 9: Marble Mania | ⭐ | - | - |
