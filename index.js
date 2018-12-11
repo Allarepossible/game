@@ -1,4 +1,4 @@
-const {resultingFrequency, duplicateFrequency} = require('./src/day-1');
+const {sumFrequencies, duplicateFrequency} = require('./src/day-1');
 const {findChecksum, findCommonLetters} = require('./src/day-2');
 const {findCountOfInches, findNotOverlapped} = require('./src/day-3');
 const {findMultiply, findSecondMultiply} = require('./src/day-4');
@@ -9,13 +9,11 @@ const {findRootNodeValue} = require('./src/day-8');
 const {findWinningScore} = require('./src/day-9');
 const {findMessageAndTime} = require('./src/day-10');
 const {findCoordinates} = require('./src/day-11');
+
+// console.log('day-1 first task: ', sumFrequencies(), '\n');
 //
-// console.log('day-1 first task:\n');
-// resultingFrequency();
-//
-// console.log('day-1 second task:\n');
-// duplicateFrequency();
-//
+// console.log('day-1 second task:', duplicateFrequency(), '\n');;
+
 // console.log('day-2 first task:\n');
 // findChecksum();
 //
@@ -45,21 +43,21 @@ const {findCoordinates} = require('./src/day-11');
 //
 // console.log('day-6 second task:\n');
 // findSizeOfRegion();
-
+//
 // console.log('day-7 first task:\n');
 // findCorrectOrders();
-
+//
 // console.log('day-7 second task:\n');
 // findCommonTime();
-
+//
 // console.log('day-8 first task:\n');
 // findRootNodeValue();
-
+//
 // console.log('day-9 first task:\n');
 // findWinningScore();
 //
 // console.log('day-10 first task:\n');
 // findMessageAndTime();
-
-console.log('day-11 first task:\n');
-findCoordinates();
+//
+// console.log('day-11 first task:\n');
+// findCoordinates();

@@ -12,7 +12,8 @@
     "advent-of-code-2018"
   ],
   "dependencies": {
-    "fs": "0.0.1-security"
+    "fs": "0.0.1-security",
+    "ramda": "^0.26.1"
   },
   "devDependencies": {
     "mocha": "^5.2.0"

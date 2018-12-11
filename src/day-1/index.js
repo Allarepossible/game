@@ -1,18 +1,12 @@
+const R = require('ramda');
 const fs = require('fs');
 const FREQUENCIES = fs.readFileSync(`${__dirname}/data.txt`, 'utf8');
 
-const prepare = (frequencies) => frequencies.toString().split('\n');
+const getFrequencies = R.compose(R.dropLast(1), R.split('\n'));
+const sumFrequencies = R.compose(R.sum, getFrequencies);
 
-const resultingFrequency = (frequencies) => {
-    const resultingFrequency = prepare(frequencies).reduce((res, item) => res + Number(item), 0);
-
-    console.log(`Resulting frequency is: ${resultingFrequency}.\n`);
-
-    return resultingFrequency;
-};
-
-const duplicateFrequency = (frequencies) => {
-    const result = prepare(frequencies).filter(i => i);
+const duplicateFrequency = frequencies => {
+    const result = getFrequencies(frequencies);
     let firstDuplicateFrequency;
     let n = 0;
     let obj = {0: 1};
@@ -32,14 +26,12 @@ const duplicateFrequency = (frequencies) => {
         }
     }
 
-    console.log(`First frequency this device reaches duplicate: ${firstDuplicateFrequency}.\n`);
-
     return firstDuplicateFrequency;
 };
 
 module.exports = {
-    resultingFrequency: resultingFrequency.bind(this, FREQUENCIES),
+    sumFrequencies: sumFrequencies.bind(this, FREQUENCIES),
     duplicateFrequency: duplicateFrequency.bind(this, FREQUENCIES),
-    resultingFrequencyForTest: resultingFrequency,
+    sumFrequenciesForTest: sumFrequencies,
     duplicateFrequencyForTest: duplicateFrequency,
 };
