@@ -22,3 +22,4 @@ https://adventofcode.com/2018 🎄
 |Day 8: Memory Maneuver | ⭐ | - | - |
 |Day 9: Marble Mania | ⭐ | - | - |
 |✔ Day 10: The Stars Align | ⭐ | ⭐ | - |
+|✔ Day 11: Chronal Charge | ⭐ | ⭐ | - |
