@@ -1,6 +1,6 @@
 const assert = require('assert');
 
-const {resultingFrequencyForTest, duplicateFrequencyForTest} = require('.');
+const {sumFrequenciesForTest, duplicateFrequencyForTest} = require('.');
 
 describe('Day 1: Chronal Calibration', () => {
     it('should calculate frequency from +1, -2, +3, +1', () => {
@@ -8,36 +8,40 @@ describe('Day 1: Chronal Calibration', () => {
             `+1
              -2
              +3
-             +1`;
+             +1
+             `;
 
-        assert.strictEqual(resultingFrequencyForTest(frequencies), 3);
+        assert.strictEqual(sumFrequenciesForTest(frequencies), 3);
     });
 
     it('should calculate frequency from +1, +1, +1', () => {
         const frequencies =
             `+1
              +1
-             +1`;
+             +1
+             `;
 
-        assert.strictEqual(resultingFrequencyForTest(frequencies), 3);
+        assert.strictEqual(sumFrequenciesForTest(frequencies), 3);
     });
 
     it('should calculate frequency from +1, +1, -2', () => {
         const frequencies =
             `+1
              +1
-             -2`;
+             -2
+             `;
 
-        assert.strictEqual(resultingFrequencyForTest(frequencies), 0);
+        assert.strictEqual(sumFrequenciesForTest(frequencies), 0);
     });
 
     it('should calculate frequency from -1, -2, -3', () => {
         const frequencies =
             `-1
              -2
-             -3`;
+             -3
+             `;
 
-        assert.strictEqual(resultingFrequencyForTest(frequencies), -6);
+        assert.strictEqual(sumFrequenciesForTest(frequencies), -6);
     });
 
     describe('Part Two', () => {
@@ -46,7 +50,8 @@ describe('Day 1: Chronal Calibration', () => {
                 `+1
                  -2
                  +3
-                 +1`;
+                 +1
+                 `;
 
             assert.strictEqual(duplicateFrequencyForTest(frequencies), 2);
         });
@@ -54,7 +59,8 @@ describe('Day 1: Chronal Calibration', () => {
         it('should calculate first duplicate frequency from +1, -1', () => {
             const frequencies =
                 `+1
-                 -1`;
+                 -1
+                 `;
 
             assert.strictEqual(duplicateFrequencyForTest(frequencies), 0);
         });
@@ -65,7 +71,8 @@ describe('Day 1: Chronal Calibration', () => {
                  +3
                  +4
                  -2
-                 -4`;
+                 -4
+                 `;
 
             assert.strictEqual(duplicateFrequencyForTest(frequencies), 10);
         });
@@ -76,7 +83,8 @@ describe('Day 1: Chronal Calibration', () => {
                  +3
                  +8
                  +5
-                 -6`;
+                 -6
+                 `;
 
             assert.strictEqual(duplicateFrequencyForTest(frequencies), 5);
         });
@@ -87,7 +95,8 @@ describe('Day 1: Chronal Calibration', () => {
                  +7
                  -2
                  -7
-                 -4`;
+                 -4
+                 `;
 
             assert.strictEqual(duplicateFrequencyForTest(frequencies), 14);
         });
