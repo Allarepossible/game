@@ -14,12 +14,11 @@ const {findCoordinates} = require('./src/day-11');
 //
 // console.log('day-1 second task:', duplicateFrequency(), '\n');;
 
-// console.log('day-2 first task:\n');
-// findChecksum();
+// console.log('day-2 first task:', findChecksum(), '\n');
 //
-// console.log('day-2 second task:\n');
-// findCommonLetters();
-// //
+// console.log('day-2 second task:', findCommonLetters(), '\n');
+
+//
 // console.log('day-3 first task:\n');
 // findCountOfInches();
 //
