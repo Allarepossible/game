@@ -9,6 +9,7 @@ const {findRootNodeValue} = require('./src/day-8');
 const {findWinningScore} = require('./src/day-9');
 const {findMessageAndTime} = require('./src/day-10');
 const {findCoordinates} = require('./src/day-11');
+const {findSumOfPots} = require('./src/day-12');
 
 // console.log('day-1 first task: ', sumFrequencies(), '\n');
 //
@@ -60,3 +61,5 @@ const {findCoordinates} = require('./src/day-11');
 //
 // console.log('day-11 first task:\n');
 // findCoordinates();
+
+console.log('day-12 first task:', findSumOfPots(), '\n');
