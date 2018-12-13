@@ -1,7 +1,7 @@
 const fs = require('fs');
 const RULES = fs.readFileSync(`${__dirname}/data.txt`, 'utf8');
 
-const InitialState = '....#..####.##.####...#....#######..#.#..#..#.#.#####.######..#.#.#.#..##.###.#....####.#.#....#.#####...................................';
+const InitialState = '....#..####.##.####...#....#######..#.#..#..#.#.#####.######..#.#.#.#..##.###.#....####.#.#....#.#####................';
 const rules = RULES.split('\n').filter(i => i).map(item => {
     const [, from, to] = item.match(/(.+) => (.)/);
 
@@ -37,11 +37,10 @@ const findNewPots = state => {
 };
 
 const findSumOfPots = state => {
-    let first = state.indexOf("#");
     const potsAfterGenerations = findNewPots(state);
     const num = Object.entries(potsAfterGenerations).reduce((sum, [key, state]) => sum + (state === "#" ? +1 : 0), 0);
 
-    return Object.entries(potsAfterGenerations).reduce((sum, [key, state]) => sum + (state === "#" ? +key : 0), 0) - num * first;
+    return Object.entries(potsAfterGenerations).reduce((sum, [key, state]) => sum + (state === "#" ? +key : 0), 0) - num * 2;
 };
 
 
