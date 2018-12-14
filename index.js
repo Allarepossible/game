@@ -10,6 +10,7 @@ const {findWinningScore} = require('./src/day-9');
 const {findMessageAndTime} = require('./src/day-10');
 const {findCoordinates} = require('./src/day-11');
 const {findSumOfPots} = require('./src/day-12');
+const {findFirstCrash} = require('./src/day-13');
 
 // console.log('day-1 first task: ', sumFrequencies(), '\n');
 //
@@ -62,4 +63,6 @@ const {findSumOfPots} = require('./src/day-12');
 // console.log('day-11 first task:\n');
 // findCoordinates();
 
-console.log('day-12 first task:', findSumOfPots(), '\n');
+//console.log('day-12 first task:', findSumOfPots(), '\n');
+
+console.log('day-13 first task:', findFirstCrash(), '\n');

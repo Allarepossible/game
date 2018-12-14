@@ -23,4 +23,5 @@ https://adventofcode.com/2018 🎄
 |Day 9: Marble Mania | ⭐ | - | - |
 |✔ Day 10: The Stars Align | ⭐ | ⭐ | - |
 |✔ Day 11: Chronal Charge | ⭐ | ⭐ | - |
-|✔ Day 12: Subterranean Sustainability | ⭐ | ⭐ | - |
+| Day 12: Subterranean Sustainability | ⭐ | - | - |
+| Day 13: Mine Cart Madness | - | - | - |
