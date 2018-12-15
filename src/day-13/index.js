@@ -2,63 +2,64 @@ const fs = require('fs');
 const AREA = fs.readFileSync(`${__dirname}/data.txt`, 'utf8');
 const CARS = ['^', 'v', '<', '>'];
 
-const makeGrids = area => area.split('\n').filter(i => i).reduce((grids, line, i) => {
+class Car {
+    constructor (x, y, type) {
+        this.x = x;
+        this.y = y;
+        this.vx = type === '<' ? -1 : type === '>' ? 1 : 0;
+        this.vy = type === '^' ? -1 : type === 'v' ? 1 : 0;
+        this.t = 0;
+        this.turns = ['left', 'direct', 'right'];
+    }
+
+    move (next) {
+        this.x += this.vx;
+        this.y += this.vy;
+
+        if (next === '\\' || next === '/') {
+            const direction =
+                next === '\\' && this.vx !== 0 ? 'right' :
+                    next === '/' && this.vx !== 0 ? 'left' :
+                        next === '\\' && this.vy !== 0 ? 'left' :
+                            next === '/' && this.vy !== 0 ? 'right' :
+                                null;
+            this.turn(direction);
+        } else if (next === '+') {
+            const direction = this.turns[this.t];
+
+            this.t = this.t + 1 === this.turns.length ? 0 : this.t + 1;
+
+            if (direction !== 'direct') {
+                this.turn(direction);
+            }
+        }
+    }
+
+    turn (direction) {
+        if (this.vx !== 0) {
+            this.vy = this.vx * (direction === 'right' ? 1 : -1);
+            this.vx = 0;
+        } else if (this.vy !== 0) {
+            this.vx = this.vy * (direction === 'right' ? -1 : 1);
+            this.vy = 0;
+        }
+    }
+}
+
+const prepareGridsAndCars = area => area.split('\n').filter(i => i).reduce(({grids, cars}, line, i) => {
+    let car;
     line.split('').forEach((item, j) => {
-        grids[`${i},${j}`] = item
+        if (CARS.indexOf(item) >= 0) {
+            car = new Car(j, i, item);
+            grids[`${i},${j}`] = item === '<' || item === '>' ? '-' : '|';
+            cars.push(car);
+        } else {
+            grids[`${i},${j}`] = item;
+        }
     });
 
-    return grids;
-}, {});
-
-const findNextPoint = (point, value) => {
-    let [x, y] = point.split(',').map(Number);
-
-    switch (value) {
-        case '^': x -= 1; break;
-        case 'v': x += 1; break;
-        case '>': y += 1; break;
-        case '<':  y -= 1; break;
-    }
-
-    return `${x},${y}`;
-};
-
-const findPrevPoint = (point, value) => {
-    let [x, y] = point.split(',').map(Number);
-
-    switch (value) {
-        case '^': x += 1; break;
-        case 'v': x -= 1; break;
-        case '>': y -= 1; break;
-        case '<':  y += 1; break;
-    }
-
-    return `${x},${y}`;
-};
-
-const findPrevValue = (grids, point, value) => {
-    let prevPoint = findPrevPoint( point, value);
-    let prev;
-
-    switch (value) {
-        case '^': prev = grids[prevPoint] === ' ' ? '\\' : '|'; break;
-        case 'v': prev = grids[prevPoint] === ' ' ? '/' : '|'; break;
-        case '>': prev = grids[prevPoint] === ' ' ? '/' : '-'; break;
-        case '<': prev = grids[prevPoint] === ' ' ? '\\' : '-'; break;
-    }
-
-    return prev;
-};
-
-const move = (grids, cars) => {
-    for (let i = 0; i < cars.length; i ++) {
-        let {point, next, value} = cars[i];
-        grids[point] = findPrevValue(grids, point, value);
-        grids[next] = value;
-    }
-
-    return grids;
-};
+    return {grids, cars};
+}, {grids: {}, cars: []});
 
 const visualize = grids => {
     const [maxX, maxY] = Object.entries(grids).reduce((sum, [point, ]) => {
@@ -69,7 +70,6 @@ const visualize = grids => {
     }, [0, 0]);
     let shot = '';
 
-    console.log(maxX, maxY)
     for (let j = 0; j <= maxX; j++) {
         for (let i = 0; i <= maxY; i ++) {
             shot += grids[`${j},${i}`] ? grids[`${j},${i}`] : ' ';
@@ -81,16 +81,26 @@ const visualize = grids => {
 };
 
 const findFirstCrash = area => {
-    let grids = makeGrids(area);
-    const cars = Object.entries(grids)
-        .filter(([point, value]) => CARS.indexOf(value) >= 0)
-        .map(([point, value], i) => ({value, next: findNextPoint(point, value), point}));
+    let {grids, cars} = prepareGridsAndCars(area);
 
-    visualize(grids);
-    grids = move(grids, cars);
-    visualize(grids);
+    while (true) {
+        const positions = [];
 
-    return '--';
+        for (let i = 0; i < cars.length; i++) {
+            const car = cars[i];
+            const nextSection = grids[`${car.y + car.vy},${car.x + car.vx}`];
+
+            car.move(nextSection);
+
+            const carPosition = `${car.x},${car.y}`;
+
+            if (positions.includes(carPosition)) {
+                return carPosition;
+            }
+
+            positions.push(carPosition);
+        }
+    }
 };
 
 

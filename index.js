@@ -67,9 +67,9 @@ const {findFinalScore} = require('./src/day-15');
 
 //console.log('day-12 first task:', findSumOfPots(), '\n');
 
-//console.log('day-13 first task:', findFirstCrash(), '\n');
+console.log('day-13 first task:', findFirstCrash(), '\n');
 
 //console.log('day-14 first task:', findBestRecipe(), '\n');
 //console.log('day-14 second task:', findCountOfRecipes(), '\n');
 
-console.log('day-15 first task:', findFinalScore(), '\n');
+//console.log('day-15 first task:', findFinalScore(), '\n');
