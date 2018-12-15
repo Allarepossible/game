@@ -26,3 +26,4 @@ https://adventofcode.com/2018 🎄
 | Day 12: Subterranean Sustainability | ⭐ | - | - |
 | Day 13: Mine Cart Madness | - | - | - |
 | Day 14: Chocolate Charts | ⭐ | ⭐ | - |
+| Day 15: Beverage Bandits | - | - | - |

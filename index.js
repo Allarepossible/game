@@ -12,6 +12,7 @@ const {findCoordinates} = require('./src/day-11');
 const {findSumOfPots} = require('./src/day-12');
 const {findFirstCrash} = require('./src/day-13');
 const {findBestRecipe, findCountOfRecipes} = require('./src/day-14');
+const {findFinalScore} = require('./src/day-15');
 
 // console.log('day-1 first task: ', sumFrequencies(), '\n');
 //
@@ -69,4 +70,6 @@ const {findBestRecipe, findCountOfRecipes} = require('./src/day-14');
 //console.log('day-13 first task:', findFirstCrash(), '\n');
 
 //console.log('day-14 first task:', findBestRecipe(), '\n');
-console.log('day-14 second task:', findCountOfRecipes(), '\n');
+//console.log('day-14 second task:', findCountOfRecipes(), '\n');
+
+console.log('day-15 first task:', findFinalScore(), '\n');
