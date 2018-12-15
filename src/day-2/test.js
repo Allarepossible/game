@@ -11,7 +11,8 @@ describe('Day 2: Inventory Management System', () => {
              abcccd
              aabcdd
              abcdee
-             ababab`;
+             ababab
+             `;
 
         assert.strictEqual(findChecksumForTest(words), 12);
     });
@@ -20,7 +21,8 @@ describe('Day 2: Inventory Management System', () => {
         const words =
             `abcdef
              bababc
-             abbcde`;
+             abbcde
+             `;
 
         assert.strictEqual(findChecksumForTest(words), 2);
     });
@@ -30,7 +32,8 @@ describe('Day 2: Inventory Management System', () => {
             `abcdef
              bababc
              abbcde
-             abcccd`;
+             abcccd
+             `;
 
         assert.strictEqual(findChecksumForTest(words), 4);
     });
@@ -41,7 +44,8 @@ describe('Day 2: Inventory Management System', () => {
              bababc
              abbcde
              abcccd
-             aabcdd`;
+             aabcdd
+             `;
 
         assert.strictEqual(findChecksumForTest(words), 6);
     });
@@ -53,7 +57,8 @@ describe('Day 2: Inventory Management System', () => {
                  fghij
                  klmno
                  pqrst
-                 fguij`;
+                 fguij
+                 `;
 
             assert.strictEqual(findCommonLettersForTest(words), 'fgij');
         });

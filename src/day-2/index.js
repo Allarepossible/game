@@ -1,11 +1,11 @@
-const R = require('ramda');
+const {compose, dropLast, split, toLower, intersection, values, join, countBy, indexOf} = require('ramda');
 const fs = require('fs');
 const WORDS = fs.readFileSync(`${__dirname}/data.txt`, 'utf8');
 
-const getWords = R.compose(R.dropLast(1), R.split('\n'));
-const getLettersInWord = R.compose(R.values, R.countBy(R.toLower), R.split(''));
-const getCommonLetters = R.compose(R.join(''), R.intersection);
-const hasSomeSimilarLetters = (word, count) => R.indexOf(count, getLettersInWord(word)) >= 0;
+const getWords = compose(dropLast(1), split('\n'));
+const getLettersInWord = compose(values, countBy(toLower), split(''));
+const getCommonLetters = compose(join(''), intersection);
+const hasSomeSimilarLetters = (word, count) => indexOf(count, getLettersInWord(word)) >= 0;
 
 const findChecksum = words => {
     const checkSums = getWords(words).reduce((acc, word) => {
@@ -41,7 +41,7 @@ const isWordsTheSame = (w1, w2) => {
 const findCommonLetters = (words) => {
     const [first, second] = whatWordsTheSame(getWords(words));
 
-    return getCommonLetters(first, second);
+    return getCommonLetters(first, second).trim();
 };
 
 module.exports = {

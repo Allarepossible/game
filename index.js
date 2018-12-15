@@ -18,8 +18,7 @@ const {findFinalScore} = require('./src/day-15');
 // console.log('day-1 second task:', duplicateFrequency(), '\n');;
 
 // console.log('day-2 first task:', findChecksum(), '\n');
-//
-// console.log('day-2 second task:', findCommonLetters(), '\n');
+//console.log('day-2 second task:', findCommonLetters(), '\n');
 
 //
 // console.log('day-3 first task:\n');
