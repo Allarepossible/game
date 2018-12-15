@@ -6,6 +6,7 @@ class Car {
     constructor (x, y, type) {
         this.x = x;
         this.y = y;
+        this.id = type;
         this.vx = type === '<' ? -1 : type === '>' ? 1 : 0;
         this.vy = type === '^' ? -1 : type === 'v' ? 1 : 0;
         this.t = 0;
@@ -103,7 +104,37 @@ const findFirstCrash = area => {
     }
 };
 
+const findLastCar = area => {
+    let {grids, cars} = prepareGridsAndCars(area);
+
+    while (true) {
+        const positions = [];
+        let crashedCar;
+
+        for (let i = 0; i < cars.length; i++) {
+            const car = cars[i];
+            const nextSection = grids[`${car.y + car.vy},${car.x + car.vx}`];
+
+            car.move(nextSection);
+
+            const carPosition = `${car.x},${car.y}`;
+
+            if (positions.includes(carPosition)) {
+                cars.splice(cars.indexOf(car), 1);
+                crashedCar = cars.find(item => item.x === car.x && item.y === car.y);
+                cars.splice(cars.indexOf(crashedCar), 1);
+            }
+
+            if (cars.length < 2) {
+                return `${cars[0].x},${cars[0].y}`;
+            }
+
+            positions.push(carPosition);
+        }
+    }
+};
 
 module.exports = {
     findFirstCrash: findFirstCrash.bind(this, AREA),
+    findLastCar: findLastCar.bind(this, AREA),
 };
