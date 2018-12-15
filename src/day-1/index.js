@@ -1,9 +1,9 @@
-const R = require('ramda');
+const {compose, dropLast, split, sum} = require('ramda');
 const fs = require('fs');
 const FREQUENCIES = fs.readFileSync(`${__dirname}/data.txt`, 'utf8');
 
-const getFrequencies = R.compose(R.dropLast(1), R.split('\n'));
-const sumFrequencies = R.compose(R.sum, getFrequencies);
+const getFrequencies = compose(dropLast(1), split('\n'));
+const sumFrequencies = compose(sum, getFrequencies);
 
 const duplicateFrequency = frequencies => {
     const result = getFrequencies(frequencies);
