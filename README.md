@@ -28,3 +28,4 @@ https://adventofcode.com/2018 🎄
 |✔ Day 14: Chocolate Charts | ⭐ | ⭐ | - |
 | Day 15: Beverage Bandits | - | - | - |
 | Day 16: Chronal Classification | ⭐ | - | - |
+| Day 17: Reservoir Research | ⭐ | - | - |
