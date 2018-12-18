@@ -1,22 +1,22 @@
 const fs = require('fs');
-const AREA = fs.readFileSync(`${__dirname}/data1.txt`, 'utf8');
+const AREA = fs.readFileSync(`${__dirname}/data.txt`, 'utf8');
 
-const prepareGrids = area => area.split('\n').filter(i => i).reduce((grids, line, i) => {
-    line.split('').forEach((item, j) => {
-        grids.push([`${i},${j}`, item]);
+const prepareGrid = area => area.split('\n').filter(i => i).reduce((grid, line, j) => {
+    grid[j] = grid[j] || [];
+    line.split('').forEach((item, i) => {
+        grid[j][i] = item;
     });
 
-    return grids;
+    return grid;
 }, []);
 
-const getSiblings = (point, grids) => {
-    const [x, y] = point.split(',').map(Number);
+const getSiblings = (x, y, grid) => {
     let siblings = [];
 
     for (let j = -1; j < 2; j++) {
         for (let i = -1; i < 2; i ++) {
-            if (grids[`${y + j},${x + i}`]) {
-                siblings.push(grids[`${y + j},${x + i}`])
+            if (grid[j + y] && grid[j + y][i + x]) {
+                siblings.push(grid[j + y][i + x])
             }
         }
     }
@@ -24,22 +24,37 @@ const getSiblings = (point, grids) => {
     return siblings;
 };
 
-const convert = (item, grids) => {
-    const [point, type] = item;
-    const siblings = getSiblings(point, grids)
+const convert = grid => {
+    return grid.map((row, j) => {
+        return row.map((item, i) => {
+            const siblings = getSiblings(i, j, grid);
 
+            if (item === '.') {
+                let count = siblings.filter(i => i === '|').length;
 
+                return count > 2 ? '|' : '.';
+            } else if (item === '|') {
+                let count = siblings.filter(i => i === '#').length;
 
-    return siblings;
+                return count > 2 ? '#' : '|';
+            }
+
+            let lumber = siblings.filter(i => i === '#').length > 1;
+            let trees = siblings.indexOf('|') !== -1;
+
+            return lumber && trees ? '#' : '.';
+        })
+    })
 };
 
-const visualize = array => {
-    const [maxX, maxY] = array[array.length - 1][0].split(',');
+const visualize = grid => {
+    const maxX = grid.length;
+    const maxY = grid[0].length;
     let shot = '';
 
-    for (let j = 0; j <= maxX; j++) {
-        for (let i = 0; i <= maxY; i++) {
-            shot += array[(Number(maxX) + 1) * j + i][1];
+    for (let j = 0; j < maxX; j++) {
+        for (let i = 0; i < maxY; i++) {
+            shot += grid[j][i];
         }
         shot += '\n';
     }
@@ -47,14 +62,32 @@ const visualize = array => {
     console.log(shot);
 };
 
+const getResources = grid => {
+    const maxX = grid.length;
+    const maxY = grid[0].length;
+    let lumbers = 0;
+    let wooded = 0;
+
+    for (let j = 0; j < maxX; j++) {
+        for (let i = 0; i < maxY; i++) {
+            lumbers += grid[j][i] === '#' ? 1 : 0;
+            wooded += grid[j][i] === '|' ? 1 : 0;
+        }
+    }
+
+    return [lumbers, wooded];
+};
+
 const resourceValue = area => {
-    let grids = prepareGrids(area);
+    let changedGrid = prepareGrid(area);
 
-    //Object.entries(grids).map(item => convert(item, grids));
+    for (let i = 0; i < 10; i++) {
+        changedGrid = convert(changedGrid)
+    }
+    const [lumbers, wooded] = getResources(changedGrid)
+    visualize(changedGrid)
 
-    console.log(grids)
-    visualize(grids)
-    return 'result';
+    return lumbers * wooded;
 };
 
 module.exports = {
