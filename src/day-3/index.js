@@ -1,24 +1,20 @@
+const {compose, dropLast, split, map, reduce, values, filter, length} = require('ramda');
 const fs = require('fs');
 const PARAMS = fs.readFileSync(`${__dirname}/data.txt`, 'utf8');
 
-const prepare = (params) => params.toString().split('\n').filter(i => i).map(convertToObj);
-
 const convertToObj = item => {
-    const [id, params] = item.trim().split('@');
-    const [pos, size] = params.split(':');
-    const [top, left] = pos.split(',');
-    const [width, height] = size.split('x');
+    let [, id, top, left, width, height] = item.match(/#(\d+) @ (\d+),(\d+): (\d+)x(\d+)/).map(Number);
 
     return {
-        id: id.slice(1).trim(),
-        top: Number(top),
-        left: Number(left),
-        width: Number(width),
-        height: Number(height),
+        id,
+        top,
+        left,
+        width,
+        height,
     };
 };
 
-const convertToGrid = params => params.reduce((grid, {top, left, width, height}) => {
+const convertToGrid = reduce((grid, {top, left, width, height}) => {
     for (let dy = 0; dy < width; dy++) {
         for (let dx = 0; dx < height; dx++) {
             let id = String(top + dy) + '-' + String(left + dx);
@@ -29,17 +25,10 @@ const convertToGrid = params => params.reduce((grid, {top, left, width, height})
     return grid;
 }, {});
 
-const findCountOfInches = params => {
-    const objectParams = prepare(params);
-    const grid = convertToGrid(objectParams);
-    const values = Object.values(grid);
+const getCountOfSpotsMoreThenTwo = compose(length, filter(spot => spot >= 2), values);
+const prepareParams = compose(map(convertToObj), dropLast(1), split('\n'));
 
-    const countOfInches = values.filter(spot => spot >= 2).length;
-
-    console.log(`Inches of fabric are within two or more claims: ${countOfInches}.\n`);
-
-    return countOfInches;
-};
+const findCountOfInches = compose(getCountOfSpotsMoreThenTwo, convertToGrid, prepareParams);
 
 const isClaimNotOverlapped = ({top, left, width, height}, grid) => {
     for (let dy = 0; dy < width; dy++) {
@@ -53,15 +42,12 @@ const isClaimNotOverlapped = ({top, left, width, height}, grid) => {
     return true;
 };
 
-const findNotOverlapped = (params) => {
-    const objectParams = prepare(params);
-    const grid = convertToGrid(objectParams);
-    const [notOverlappedClaim] = objectParams.filter(item => isClaimNotOverlapped(item, grid));
-    const notOverlappedClaimId = notOverlappedClaim.id;
+const findNotOverlapped = params => {
+    const PARAMS = prepareParams(params);
+    const grid = convertToGrid(PARAMS);
+    const notOverlappedClaim = PARAMS.find(item => isClaimNotOverlapped(item, grid));
 
-    console.log(`ID of the only claim that doesn't overlap: ${notOverlappedClaimId}.\n`);
-
-    return notOverlappedClaimId;
+    return notOverlappedClaim && notOverlappedClaim.id;
 };
 
 

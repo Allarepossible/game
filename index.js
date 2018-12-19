@@ -23,12 +23,9 @@ const {resourceValue} = require('./src/day-18');
 // console.log('day-2 first task:', findChecksum(), '\n');
 //console.log('day-2 second task:', findCommonLetters(), '\n');
 
-//
-// console.log('day-3 first task:\n');
-// findCountOfInches();
-//
-// console.log('day-3 second task:\n');
-// findNotOverlapped();
+console.log('day-3 first task:', findCountOfInches(), '\n');
+console.log('day-3 second task:', findNotOverlapped(), '\n');
+
 //
 // console.log('day-4 first task:\n');
 // findMultiply();
@@ -80,4 +77,4 @@ const {resourceValue} = require('./src/day-18');
 
 //console.log('day-17 first task:', findWaterTiles(), '\n');
 
-console.log('day-18 first task:', resourceValue(), '\n');
+//console.log('day-18 first task:', resourceValue(), '\n');
