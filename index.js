@@ -26,12 +26,12 @@ const {resourceValue} = require('./src/day-18');
 //console.log('day-3 first task:', findCountOfInches(), '\n');
 //console.log('day-3 second task:', findNotOverlapped(), '\n');
 
-//
-// console.log('day-4 first task:\n');
-// findMultiply();
-//
-// console.log('day-4 second task:\n');
-// findSecondMultiply();
+
+console.log('day-4 first task:\n');
+findMultiply();
+
+console.log('day-4 second task:\n');
+findSecondMultiply();
 //
 // console.log('day-5 first task:\n');
 // findRemainingUnits();

@@ -1,12 +1,17 @@
+const {compose, split, map, filter, sort} = require('ramda');
 const fs = require('fs');
 const TIMETABLE = fs.readFileSync(`${__dirname}/data.txt`, 'utf8');
 
-const prepare = (timetable) => timetable.toString().split('\n').filter(i => i).map(item => item.trim()).sort();
+//const prepare = (timetable) => timetable.toString().split('\n').filter(i => i).map(item => item.trim()).sort();
 
+//60438
+//47989
 const convertToGuards = times => {
+    console.log('================', times)
     let curId = '';
     let guards = {};
     for (let i = 0; i < times.length; i++) {
+        console.log(times[i])
         let [, m, d, , min, text] = times[i].match(/\[1518-(\d+)-(\d+) (\d+):(\d+)] (.+)/);
         if (text.indexOf('#') > 0) {
             const [, id] = text.match(/Guard #(\d+) begins shift/);
@@ -18,6 +23,8 @@ const convertToGuards = times => {
     }
     return guards;
 };
+
+const prepare = compose(convertToGuards, sort, filter(i => i), split('\n'));
 
 const howLongSleep = schedule => {
     let time = 0;
@@ -67,8 +74,8 @@ const findLaziestMinute = schedule => {
 };
 
 const findMultiply = params => {
-    const sortedTimes = prepare(params);
-    const guards = convertToGuards(sortedTimes);
+    const guards = prepare(params);
+    console.log('========', params, guards)
     const guardsSleptTime = {};
 
     for (const [key, value] of Object.entries(guards)) {
@@ -102,8 +109,7 @@ const findLaziestMinuteAndGuard = guards => {
 };
 
 const findSecondMultiply = params => {
-    const sortedTimes = prepare(params);
-    const guards = convertToGuards(sortedTimes);
+    const guards = prepare(params);
     const {laziestMinuteOfAll, laziestGuard} = findLaziestMinuteAndGuard(guards);
 
     const multiply = laziestMinuteOfAll * laziestGuard;
