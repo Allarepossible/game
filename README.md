@@ -30,3 +30,4 @@ https://adventofcode.com/2018 🎄
 | Day 16: Chronal Classification | ⭐ | - | - |
 | Day 17: Reservoir Research | - | - | - |
 | Day 18: Settlers of The North Pole | ⭐ | - | - |
+| Day 19: Go With The Flow | - | - | - |

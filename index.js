@@ -16,6 +16,7 @@ const {findFinalScore} = require('./src/day-15');
 const {findCountOfSamples} = require('./src/day-16');
 const {findWaterTiles} = require('./src/day-17');
 const {resourceValue} = require('./src/day-18');
+const {result} = require('./src/day-19');
 
 // console.log('day-1 first task: ', sumFrequencies(), '\n');
 // console.log('day-1 second task:', duplicateFrequency(), '\n');;
@@ -27,11 +28,11 @@ const {resourceValue} = require('./src/day-18');
 //console.log('day-3 second task:', findNotOverlapped(), '\n');
 
 
-console.log('day-4 first task:\n');
-findMultiply();
-
-console.log('day-4 second task:\n');
-findSecondMultiply();
+// console.log('day-4 first task:\n');
+// findMultiply();
+//
+// console.log('day-4 second task:\n');
+// findSecondMultiply();
 //
 // console.log('day-5 first task:\n');
 // findRemainingUnits();
@@ -78,3 +79,5 @@ findSecondMultiply();
 //console.log('day-17 first task:', findWaterTiles(), '\n');
 
 //console.log('day-18 first task:', resourceValue(), '\n');
+
+console.log('day-19 first task:', result(), '\n');
