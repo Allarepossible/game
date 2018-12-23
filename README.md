@@ -31,3 +31,4 @@ https://adventofcode.com/2018 🎄
 | Day 17: Reservoir Research | - | - | - |
 | Day 18: Settlers of The North Pole | ⭐ | - | - |
 | Day 19: Go With The Flow | - | - | - |
+| Day 23: Experimental Emergency Teleportation | ⭐ | - | - |
