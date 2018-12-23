@@ -16,7 +16,7 @@ const {findFinalScore} = require('./src/day-15');
 const {findCountOfSamples} = require('./src/day-16');
 const {findWaterTiles} = require('./src/day-17');
 const {resourceValue} = require('./src/day-18');
-const {result} = require('./src/day-23');
+const {result} = require('./src/day-22');
 
 // console.log('day-1 first task: ', sumFrequencies(), '\n');
 // console.log('day-1 second task:', duplicateFrequency(), '\n');;
@@ -82,4 +82,6 @@ const {result} = require('./src/day-23');
 
 //console.log('day-19 first task:', result(), '\n');
 
-console.log('day-23 first task:', result(), '\n');
+//console.log('day-23 first task:', result(), '\n');
+
+console.log('day-22 first task:', result(), '\n');
