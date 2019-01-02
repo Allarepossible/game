@@ -27,13 +27,9 @@ const {result} = require('./src/day-22');
 //console.log('day-3 first task:', findCountOfInches(), '\n');
 //console.log('day-3 second task:', findNotOverlapped(), '\n');
 
+console.log('day-4 first task:', findMultiply(),'\n');
+console.log('day-4 second task:', findSecondMultiply(),'\n');
 
-// console.log('day-4 first task:\n');
-// findMultiply();
-//
-// console.log('day-4 second task:\n');
-// findSecondMultiply();
-//
 // console.log('day-5 first task:\n');
 // findRemainingUnits();
 //
@@ -84,4 +80,4 @@ const {result} = require('./src/day-22');
 
 //console.log('day-23 first task:', result(), '\n');
 
-console.log('day-22 first task:', result(), '\n');
+//console.log('day-22 first task:', result(), '\n');

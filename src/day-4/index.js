@@ -1,17 +1,12 @@
-const {compose, split, map, filter, sort} = require('ramda');
+const {compose, split, values, reduce, filter, mapObjIndexed} = require('ramda');
 const fs = require('fs');
 const TIMETABLE = fs.readFileSync(`${__dirname}/data.txt`, 'utf8');
 
-//const prepare = (timetable) => timetable.toString().split('\n').filter(i => i).map(item => item.trim()).sort();
-
-//60438
-//47989
 const convertToGuards = times => {
-    console.log('================', times)
     let curId = '';
     let guards = {};
     for (let i = 0; i < times.length; i++) {
-        console.log(times[i])
+
         let [, m, d, , min, text] = times[i].match(/\[1518-(\d+)-(\d+) (\d+):(\d+)] (.+)/);
         if (text.indexOf('#') > 0) {
             const [, id] = text.match(/Guard #(\d+) begins shift/);
@@ -24,17 +19,8 @@ const convertToGuards = times => {
     return guards;
 };
 
-const prepare = compose(convertToGuards, sort, filter(i => i), split('\n'));
-
-const howLongSleep = schedule => {
-    let time = 0;
-
-    for (const [, value] of Object.entries(schedule)) {
-        time += value.reduce((ac,m,i) => i % 2 === 0 ? ac - m : ac + +m, 0);
-    }
-
-    return time;
-};
+const prepare = compose(filter(i => i), split('\n'));
+const howLongSleep = compose(reduce((acc, value) => acc + value.reduce((ac,m,i) => i % 2 === 0 ? ac - m : ac + +m, 0), 0), values);
 
 const findLaziestGuard = guardsSleptTime => {
     let maxTime = 0;
@@ -74,21 +60,13 @@ const findLaziestMinute = schedule => {
 };
 
 const findMultiply = params => {
-    const guards = prepare(params);
-    console.log('========', params, guards)
-    const guardsSleptTime = {};
+    const guards = convertToGuards(prepare(params).sort());
+    const guardsSleptTime = mapObjIndexed(value => howLongSleep(value), guards);
 
-    for (const [key, value] of Object.entries(guards)) {
-        guardsSleptTime[key] = howLongSleep(value);
-    }
     const laziestGuard = findLaziestGuard(guardsSleptTime);
     const {laziestMinute} = findLaziestMinute(guards[laziestGuard]);
 
-    const multiply = laziestGuard * laziestMinute;
-
-    console.log(`ID of the guard multiplied by the minute: ${multiply}.\n`);
-
-    return multiply;
+    return laziestGuard * laziestMinute;
 };
 
 const findLaziestMinuteAndGuard = guards => {
@@ -109,14 +87,10 @@ const findLaziestMinuteAndGuard = guards => {
 };
 
 const findSecondMultiply = params => {
-    const guards = prepare(params);
+    const guards = convertToGuards(prepare(params).sort());
     const {laziestMinuteOfAll, laziestGuard} = findLaziestMinuteAndGuard(guards);
 
-    const multiply = laziestMinuteOfAll * laziestGuard;
-
-    console.log(`ID of the guard multiplied by the minute: ${multiply}.\n`);
-
-    return multiply;
+    return laziestMinuteOfAll * laziestGuard;
 };
 
 
