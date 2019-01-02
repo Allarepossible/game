@@ -38,7 +38,7 @@ For example, using the same list of changes above, the device would loop as foll
 2. Current frequency  1, change of -2; resulting frequency -1.
 3. Current frequency -1, change of +3; resulting frequency  2.
 4. Current frequency  2, change of +1; resulting frequency  3.
-`(At this point, the device continues from the start of the list.)``
+`(At this point, the device continues from the start of the list.)`
 5. Current frequency  3, change of +1; resulting frequency  4.
 6. Current frequency  4, change of -2; resulting frequency  2, which has already been seen.
 
